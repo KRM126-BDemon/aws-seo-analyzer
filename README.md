@@ -12,7 +12,7 @@ This tool analyzes website content (blog posts, product descriptions, landing pa
 
 **Current State (MVP):** This project demonstrates technical capability to integrate AI into marketing workflows using AWS serverless architecture.
 
-**Future Value (Production):** 
+**Future Value If Further Developed:** 
 - Batch processing of multiple pages
 - CMS/WordPress integration for automated audits
 - Historical tracking and trend analysis
@@ -26,8 +26,9 @@ This tool analyzes website content (blog posts, product descriptions, landing pa
 
 - **AWS Lambda** (Python 3.12): Core processing logic
 - **Amazon Bedrock** (Claude 3 Haiku): AI-powered content analysis
+- **API Gateway (REST API): Public endpoint with rate limiting and throttling**
 - **IAM**: Secure permissions management
-- **CloudWatch**: Monitoring and logging
+- **CloudWatch**: Monitoring,logging, billing alarms
 
 ## ✨ Features
 
@@ -41,44 +42,15 @@ This tool analyzes website content (blog posts, product descriptions, landing pa
 
 ## 🚀 How It Works
 
-1. User submits content via Lambda test console (or API Gateway in future)
+1. User submits content via Lambda test console or API Gateway
 2. Lambda function receives and validates content
 3. Formats prompt and calls Bedrock API (Claude 3 Haiku)
 4. Claude analyzes content and returns SEO recommendations
 5. Lambda returns structured JSON response with analysis
 
-## 💻 Technical Implementation
-
-### Lambda Function
-- **Runtime**: Python 3.12
-- **Timeout**: 30 seconds
-- **Memory**: 128 MB
-- **Handler**: lambda_function.lambda_handler
-
-### Key Code Features
-- Input validation and content truncation
-- Structured prompt engineering for consistent AI responses
-- Error handling for API failures
-- JSON parsing and response formatting
-- CORS headers for future frontend integration
-
-### IAM Permissions
-Lambda execution role requires:
-- `AWSLambdaBasicExecutionRole` (CloudWatch Logs)
-- `bedrock:InvokeModel` (Bedrock API access)
-
-## 📊 Cost Analysis
-
-**Development/Testing**: ~$5-10 total
-- Bedrock (Claude 3 Haiku): ~$0.001-0.003 per analysis
-- Lambda: Free tier (1M requests/month)
-- CloudWatch: Free tier (5GB logs)
-
-**Ongoing**: ~$1-2/month for occasional use
 
 ## 🧪 Testing
 
-See `test-events/` folder for sample test cases.
 
 **Example test event:**
 ```json
@@ -115,12 +87,6 @@ See `test-events/` folder for sample test cases.
 
 ## 🔮 Future Enhancements
 
-### Phase 2: API Gateway Integration
-- [ ] Create REST API endpoint
-- [ ] Add API key authentication
-- [ ] Enable CORS for web access
-- [ ] Public URL for testing
-
 ### Phase 3: Frontend Interface
 - [ ] Build simple HTML/JS interface
 - [ ] Host on S3 + CloudFront
@@ -139,40 +105,3 @@ See `test-events/` folder for sample test cases.
 - [ ] Add request throttling
 - [ ] CloudWatch cost monitoring dashboard
 - [ ] Billing alerts
-
-## 📝 Setup Instructions
-
-### Prerequisites
-- AWS Account
-- AWS CLI configured (optional)
-- Python 3.12
-
-### Deployment Steps
-
-1. **Create Lambda Function**
-```
-   - Runtime: Python 3.12
-   - Function name: seo-content-analyzer
-   - Timeout: 30 seconds
-```
-
-2. **Configure IAM Permissions**
-   - Attach `AmazonBedrockFullAccess` to execution role
-   - Or create custom policy with `bedrock:InvokeModel`
-
-3. **Deploy Code**
-   - Copy `lambda_function.py` to Lambda console
-   - Click "Deploy"
-
-4. **Test**
-   - Use test events from `test-events/` folder
-   - Verify successful execution
-
-## 🔗 Related Projects
-
-- [San Pedro Guitar Website](https://www.sanpedroguitar.com) - Static S3 website with Lambda contact form
-
-
-## 📄 License
-
-MIT License - see LICENSE file for details
