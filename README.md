@@ -1,6 +1,7 @@
 # SEO Content Analyzer
 
 AWS serverless application that analyzes web content for SEO optimization using AI (Claude 3 via Amazon Bedrock).
+Access analyzer at https://sanpedroguitar.com/seo-analyzer.html
 
 ## 🎯 Project Overview
 
